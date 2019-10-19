@@ -33,6 +33,6 @@ class Cellar extends Model
 
     public function hallways()
     {
-        return $this->hasMany(Hall::class, 'cellar_id');
+        return $this->hasMany(Hall::class);
     }
 }

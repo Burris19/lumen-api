@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cellar;
+use App\Models\Hall;
 use Illuminate\Http\Request;
 
-class WineriesController extends Controller
+class HallwaysController extends Controller
 {
 
     public function index()
     {
-        $data = Cellar::with('hallways')->get();
+        $data = Hall::with('cellar')->get();
 
         $response = [
             'code' => 200,
@@ -22,7 +22,7 @@ class WineriesController extends Controller
 
     public function show($id)
     {
-        $register = Cellar::findOrFail($id);
+        $register = Hall::findOrFail($id);
 
         $response = [
             'code' => 200,
@@ -35,16 +35,15 @@ class WineriesController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'code' => 'required|unique:wineries',
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required'
+            'code' => 'required|unique:hallways',
+            'description' => 'required',
+            'cellar_id' => 'required|exists:wineries,id'
         ];
 
         $this->validate($request, $rules);
         $fields = $request->all();
 
-        $register = Cellar::create($fields);
+        $register = Hall::create($fields);
 
         $response = [
             'code' => 201,
@@ -56,13 +55,12 @@ class WineriesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $register = Cellar::findOrFail($id);
+        $register = Hall::findOrFail($id);
 
         $rules = [
-            'code' => 'required|unique:wineries,code,' . $register->id,
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required'
+            'code' => 'required|unique:hallways,code,' . $register->id,
+            'description' => 'required',
+            'cellar_id' => 'required|exists:wineries,id'
         ];
 
         $this->validate($request, $rules);
@@ -71,7 +69,6 @@ class WineriesController extends Controller
 
         $response = [
             'code' => 200,
-            'message' => 'Update Successfully',
             'data' => $register
         ];
 
@@ -80,7 +77,7 @@ class WineriesController extends Controller
 
     public function delete($id)
     {
-        Cellar::findOrFail($id)->delete();
+        Hall::findOrFail($id)->delete();
 
         $response = [
             'code' => 200

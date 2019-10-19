@@ -33,7 +33,7 @@ class Hall extends Model
 
     public function cellar()
     {
-        return $this->belongsTo(Cellar::class);
+        return $this->belongsTo(Cellar::class, 'cellar_id', 'id');
     }
 
     public function shelves()
