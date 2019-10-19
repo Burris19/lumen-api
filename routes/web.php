@@ -20,7 +20,6 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
     $router->put('wineries/{id}', 'WineriesController@update');
     $router->delete('wineries/{id}', 'WineriesController@delete');
 
-
     /*
         Rutas para Pasillos
     */
@@ -38,4 +37,14 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
     $router->post('shelves', 'ShelvesController@store');
     $router->put('shelves/{id}', 'ShelvesController@update');
     $router->delete('shelves/{id}', 'ShelvesController@delete');
+
+
+    /*
+        Rutas para Categorias
+    */
+    $router->get('categories', 'CategoriesController@index');
+    $router->get('categories/{id}', 'CategoriesController@show');
+    $router->post('categories', 'CategoriesController@store');
+    $router->put('categories/{id}', 'CategoriesController@update');
+    $router->delete('categories/{id}', 'CategoriesController@delete');
 });
