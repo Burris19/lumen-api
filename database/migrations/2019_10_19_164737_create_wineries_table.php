@@ -15,11 +15,14 @@ class CreateWineriesTable extends Migration
     {
         Schema::create('wineries', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('code')->unique();
             $table->string('name')->unique();
             $table->string('address');
             $table->string('phone');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

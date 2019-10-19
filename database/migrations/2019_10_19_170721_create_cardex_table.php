@@ -15,6 +15,7 @@ class CreateCardexTable extends Migration
     {
         Schema::create('cardex', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('type');
             $table->date('date_transaction');
 
@@ -27,6 +28,7 @@ class CreateCardexTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

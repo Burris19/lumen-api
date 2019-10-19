@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('code')->unique();
             $table->mediumText('description');
             $table->float('cost_price', 8, 2);
@@ -26,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->foreign('rack_id')->references('id')->on('shelves');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

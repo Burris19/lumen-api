@@ -1,5 +1,12 @@
 <?php
 
+use App\Models\Cellar;
+use App\Models\Hall;
+use App\Models\Rack;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Cardex;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,9 +18,50 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(Cellar::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
+        'code'  => $faker->uuid,
+        'name'  => $faker->company(),
+        'address' => $faker->address(),
+        'phone' => $faker->phoneNumber()
+    ];
+});
+
+$factory->define(Hall::class, function (Faker\Generator $faker) {
+    return [
+        'code'  => $faker->uuid,
+        'description' => $faker->paragraph(),
+        'cellar_id' => Cellar::all()->random()->id,
+    ];
+});
+
+
+$factory->define(Rack::class, function (Faker\Generator $faker) {
+    return [
+        'code'  => $faker->uuid,
+        'description' => $faker->paragraph(),
+        'hall_id' => Hall::all()->random()->id,
+    ];
+});
+
+$factory->define(Product::class, function (Faker\Generator $faker) {
+    return [
+        'code'  => $faker->uuid,
+        'description' => $faker->paragraph(),
+        'cost_price' =>  $faker->unique()->randomDigit,
+        'sale_price' => $faker->unique()->randomDigit,
+        'category_id' => Category::all()->random()->id,
+        'rack_id' => Rack::all()->random()->id
+    ];
+});
+
+$factory->define(Cardex::class, function (Faker\Generator $faker) {
+    $types = ['sale', 'buy', 'return', 'sample'];
+    return [
+        'type' => array_rand($types, 1),
+        'date_transaction' => $faker->dateTimeBetween($startDate = 'now', $endDate = '+5 years'),
+        'cellar_from_id' => Cellar::all()->random()->id,
+        'cellar_to_id' =>  Cellar::all()->random()->id,
+        'product_id' => Product::all()->random()->id
     ];
 });

@@ -15,12 +15,15 @@ class CreateHallwaysTable extends Migration
     {
         Schema::create('hallways', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('code')->unique();
             $table->mediumText('description');
             $table->unsignedBigInteger('cellar_id');
 
             $table->foreign('cellar_id')->references('id')->on('wineries');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

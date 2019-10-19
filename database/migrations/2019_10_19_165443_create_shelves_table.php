@@ -15,12 +15,15 @@ class CreateShelvesTable extends Migration
     {
         Schema::create('shelves', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('code')->unique();
             $table->mediumText('description');
             $table->unsignedBigInteger('hall_id');
 
             $table->foreign('hall_id')->references('id')->on('hallways');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
