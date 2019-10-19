@@ -10,7 +10,8 @@ class HallwaysController extends Controller
 
     public function index()
     {
-        $data = Hall::with('cellar')->get();
+        $data = Hall::with('cellar')
+            ->with('shelves')->get();
 
         $response = [
             'code' => 200,

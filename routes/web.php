@@ -22,11 +22,20 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
 
 
     /*
-        Rutas para Pisos
+        Rutas para Pasillos
     */
     $router->get('hallways', 'HallwaysController@index');
     $router->get('hallways/{id}', 'HallwaysController@show');
     $router->post('hallways', 'HallwaysController@store');
     $router->put('hallways/{id}', 'HallwaysController@update');
     $router->delete('hallways/{id}', 'HallwaysController@delete');
+
+    /*
+        Rutas para Estanterias
+    */
+    $router->get('shelves', 'ShelvesController@index');
+    $router->get('shelves/{id}', 'ShelvesController@show');
+    $router->post('shelves', 'ShelvesController@store');
+    $router->put('shelves/{id}', 'ShelvesController@update');
+    $router->delete('shelves/{id}', 'ShelvesController@delete');
 });

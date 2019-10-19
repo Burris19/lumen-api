@@ -32,6 +32,6 @@ class Rack extends Model
 
     public function hall()
     {
-        return $this->belongsTo(Hall::class, 'hall_id');
+        return $this->belongsTo(Hall::class, 'hall_id', 'id');
     }
 }
