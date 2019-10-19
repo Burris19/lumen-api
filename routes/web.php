@@ -10,7 +10,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'apiv1'], function () use ($router) {
+    $router->get('wineries', 'WineriesController@index');
+    $router->get('wineries/{id}', 'WineriesController@show');
+    $router->post('wineries', 'WineriesController@store');
+    $router->put('wineries/{id}', 'WineriesController@update');
+    $router->delete('wineries/{id}', 'WineriesController@delete');
 });
