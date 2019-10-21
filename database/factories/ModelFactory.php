@@ -47,6 +47,7 @@ $factory->define(Rack::class, function (Faker\Generator $faker) {
 $factory->define(Product::class, function (Faker\Generator $faker) {
     return [
         'code'  => $faker->uuid,
+        'name' => $faker->name,
         'description' => $faker->paragraph(),
         'cost_price' =>  $faker->unique()->randomDigit,
         'sale_price' => $faker->unique()->randomDigit,
@@ -57,11 +58,13 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
 
 $factory->define(Cardex::class, function (Faker\Generator $faker) {
     $types = ['sale', 'buy', 'return', 'sample'];
+    $action = ['entrada', 'salida'];
     return [
         'type' => array_rand($types, 1),
         'date_transaction' => $faker->dateTimeBetween($startDate = 'now', $endDate = '+5 years'),
         'cellar_from_id' => Cellar::all()->random()->id,
         'cellar_to_id' =>  Cellar::all()->random()->id,
+        'action' => array_rand($action, 1),
         'product_id' => Product::all()->random()->id
     ];
 });

@@ -16,6 +16,7 @@ class CreateCardexTable extends Migration
         Schema::create('cardex', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('action');
             $table->string('type');
             $table->date('date_transaction');
 

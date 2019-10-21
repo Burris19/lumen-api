@@ -22,6 +22,7 @@ class Cardex extends Model
      * @var array
      */
     protected $fillable = [
+        'action',
         'type',
         'date_transaction',
         'cellar_from_id',
