@@ -1,7 +1,7 @@
 FROM php:7.2-fpm-stretch
 
 # Copiar composer.lock y composer.json
-# COPY composer.lock composer.json /var/www/
+COPY composer.lock composer.json /var/www/
 
 # Configura el directorio raiz
 WORKDIR /var/www

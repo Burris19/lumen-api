@@ -49,6 +49,11 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
     $router->delete('categories/{id}', 'CategoriesController@delete');
 
     /*
+        Rutas para Productos
+    */
+    $router->get('products', 'ProductsController@index');
+
+    /*
         Rutas para Cardex
     */
     $router->post('cardex/product', 'CardexController@store');
