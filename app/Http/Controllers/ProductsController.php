@@ -21,7 +21,7 @@ class ProductsController extends Controller
 
     public function productsByCellar($id)
     {
-        $data = Cellar::findOrFail($id)
+        $data = Cellar::where('id', $id)
             ->with('hallways')
             ->with('hallways.shelves')
             ->with('hallways.shelves.products')
@@ -33,7 +33,6 @@ class ProductsController extends Controller
             ->pluck('products')
             ->collapse()
             ->values();
-
 
         $response = [
             'code' => 200,

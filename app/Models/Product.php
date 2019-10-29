@@ -37,6 +37,6 @@ class Product extends Model
 
     public function rack()
     {
-        return $this->belongsTo(Rack::class, 'rack_id', 'id');
+        return $this->belongsTo(Rack::class);
     }
 }
