@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use App\Models\Hall;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,5 +34,10 @@ class Rack extends Model
     public function hall()
     {
         return $this->belongsTo(Hall::class, 'hall_id', 'id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

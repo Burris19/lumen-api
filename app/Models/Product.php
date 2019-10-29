@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Rack;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -32,4 +33,10 @@ class Product extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+
+    public function rack()
+    {
+        return $this->belongsTo(Rack::class, 'rack_id', 'id');
+    }
 }
