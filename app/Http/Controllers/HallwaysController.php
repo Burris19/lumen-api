@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 class HallwaysController extends Controller
 {
 
+    public function getHallwaysCellar($id)
+    {
+        $data = Hall::where('cellar_id', $id)->get();
+
+        $response = [
+            'code' => 200,
+            'data' => $data
+        ];
+
+        return response()->json($response);
+    }
+
     public function index()
     {
         $data = Hall::with('cellar')

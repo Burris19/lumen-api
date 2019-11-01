@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 class ShelvesController extends Controller
 {
 
+    public function getShelvesHall($id)
+    {
+        $data = Rack::where('hall_id', $id)->get();
+
+        $response = [
+            'code' => 200,
+            'data' => $data
+        ];
+
+        return response()->json($response);
+    }
+
     public function index()
     {
         $data = Rack::with('hall')

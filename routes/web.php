@@ -51,10 +51,15 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
     /*
         Rutas para Productos
     */
+    $router->get('products', 'ProductsController@index');
     $router->get('products/cellar/{id}', 'ProductsController@productsByCellar');
 
     /*
         Rutas para Cardex
     */
     $router->post('cardex/product', 'CardexController@store');
+
+
+    $router->get('hallways/cellar/{id}', 'HallwaysController@getHallwaysCellar');
+    $router->get('shelves/hall/{id}', 'ShelvesController@getShelvesHall');
 });
