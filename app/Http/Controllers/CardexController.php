@@ -32,16 +32,45 @@ class CardexController extends Controller
         $products = $request->products;
 
         if ($request->action == 'ENTRADA' && $request->type != 'BODEGA') {
-            foreach ($products as $key => $product) {
+            $numberOfProductos =  $fields['amountProduct'];
+            for ($x = 0; $x <=  $numberOfProductos; $x++) {
+                // Crear Producto
+                $product = $products[0];
+                $product['rack_id'] = $fields['rack_id'];
                 $newProduct = Product::create($product);
-                $products[$key]['id'] = $newProduct->id;
+
+                // Registar Cardex
+                $newRegister['action'] = $fields['action'];
+                $newRegister['type'] = $fields['type'];
+                $newRegister['date_transaction'] = $fields['date_transaction'];
+                $newRegister['cellar_to_id'] = $fields['cellar_to_id'];
+                if ($request->has('cellar_from_id')) {
+                    $newRegister['cellar_from_id'] = $fields['cellar_from_id'];
+                }
+                $newRegister['product_id'] = $newProduct->id;
+                Cardex::create($newRegister);
             }
         }
+
+
 
         // Recorrer los productos, buscar el producto por su id  y luego eliminarlo
         if ($request->action == 'SALIDA' && $request->type != 'BODEGA') {
             foreach ($products as $key => $idProduct) {
                 Product::findOrFail($idProduct)->delete();
+            }
+
+            //Registrar la transaccion en la tabla de cardex
+            foreach ($products as $key => $idProduct) {
+                $newRegister['action'] = $fields['action'];
+                $newRegister['type'] = $fields['type'];
+                $newRegister['date_transaction'] = $fields['date_transaction'];
+                $newRegister['cellar_to_id'] = $fields['cellar_to_id'];
+                if ($request->has('cellar_from_id')) {
+                    $newRegister['cellar_from_id'] = $fields['cellar_from_id'];
+                }
+                $newRegister['product_id'] = $idProduct;
+                Cardex::create($newRegister);
             }
         }
 
@@ -49,19 +78,19 @@ class CardexController extends Controller
             foreach ($products as $key => $idProduct) {
                 Product::where('id', $idProduct)->update(['rack_id' => $fields['rack_id']]);
             }
-        }
 
-        //Registrar la transaccion en la tabla de cardex
-        foreach ($products as $key => $idProduct) {
-            $newRegister['action'] = $fields['action'];
-            $newRegister['type'] = $fields['type'];
-            $newRegister['date_transaction'] = $fields['date_transaction'];
-            $newRegister['cellar_to_id'] = $fields['cellar_to_id'];
-            if ($request->has('cellar_from_id')) {
-                $newRegister['cellar_from_id'] = $fields['cellar_from_id'];
+            //Registrar la transaccion en la tabla de cardex
+            foreach ($products as $key => $idProduct) {
+                $newRegister['action'] = $fields['action'];
+                $newRegister['type'] = $fields['type'];
+                $newRegister['date_transaction'] = $fields['date_transaction'];
+                $newRegister['cellar_to_id'] = $fields['cellar_to_id'];
+                if ($request->has('cellar_from_id')) {
+                    $newRegister['cellar_from_id'] = $fields['cellar_from_id'];
+                }
+                $newRegister['product_id'] = $idProduct;
+                Cardex::create($newRegister);
             }
-            $newRegister['product_id'] = $idProduct;
-            Cardex::create($newRegister);
         }
 
         $response = [
