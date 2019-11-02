@@ -41,4 +41,21 @@ class ProductsController extends Controller
 
         return response()->json($response);
     }
+
+
+    public function productsWithRelationship()
+    {
+        $data = Product::with('rack')
+            ->with('rack.hall')
+            ->with('rack.hall')
+            ->with('rack.hall.cellar')
+            ->get();
+
+        $response = [
+            'code' => 200,
+            'data' => $data
+        ];
+
+        return response()->json($response);
+    }
 }

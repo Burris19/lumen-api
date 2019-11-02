@@ -38,7 +38,6 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
     $router->put('shelves/{id}', 'ShelvesController@update');
     $router->delete('shelves/{id}', 'ShelvesController@delete');
 
-
     /*
         Rutas para Categorias
     */
@@ -52,13 +51,13 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
         Rutas para Productos
     */
     $router->get('products', 'ProductsController@index');
+    $router->get('products/cellar', 'ProductsController@productsWithRelationship');
     $router->get('products/cellar/{id}', 'ProductsController@productsByCellar');
 
     /*
         Rutas para Cardex
     */
     $router->post('cardex/product', 'CardexController@store');
-
 
     $router->get('hallways/cellar/{id}', 'HallwaysController@getHallwaysCellar');
     $router->get('shelves/hall/{id}', 'ShelvesController@getShelvesHall');
