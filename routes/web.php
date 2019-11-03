@@ -54,6 +54,11 @@ $router->group(['prefix' => 'apiv1'], function () use ($router) {
     $router->get('products/cellar', 'ProductsController@productsWithRelationship');
     $router->get('products/cellar/{id}', 'ProductsController@productsByCellar');
 
+    /**
+     * Buscar producto por codigo o nombre
+     */
+    $router->post('product/search', 'ProductsController@SearchProduct');
+
     /*
         Rutas para Cardex
     */
